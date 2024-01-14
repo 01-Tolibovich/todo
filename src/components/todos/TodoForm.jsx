@@ -1,15 +1,22 @@
-import { InputUI } from "../UI";
+import { useState } from "react";
 
+const TodoForm = ({ addTodo }) => {
+  const [text, setText] = useState("");
 
-const TodoForm = () => {
-
-  const input = {
-    type: "text",
-    placeholder: "Enter new todo"
-  }
-
+  const submitHandle = (event) => {
+    event.preventDefault();
+    addTodo(text);
+    setText("");
+  };
   return (
-    <InputUI {...input} />
+    <form onSubmit={submitHandle}>
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 

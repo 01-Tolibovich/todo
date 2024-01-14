@@ -1,9 +1,10 @@
+import "./styles.scss";
 
-
-const ButtonUI = () => {
-
+const ButtonUI = ({ children, handleClick }) => {
   return (
-    <button>Button</button>
+    <button onClick={handleClick} className="button-ui">
+      {children}
+    </button>
   );
 };
 

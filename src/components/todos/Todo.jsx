@@ -1,18 +1,5 @@
-import { ButtonUI } from "../UI";
-import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
-
-
-const Todo = () => {
-  return (
-    <div>
-      <div>
-        <TodoForm />
-        <ButtonUI />
-      </div>
-      <TodoList />
-    </div>
-  );
+const Todo = ({ todo, deleteTodo, index }) => {
+  return <h3 onDoubleClick={() => deleteTodo(index)}>{todo}</h3>;
 };
 
 export default Todo;
