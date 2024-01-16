@@ -1,12 +1,19 @@
 import { useState } from "react";
-import "./App.scss";
+import { v4 as uuidv4 } from "uuid";
 import { TodoForm, TodoList } from "./components/todos";
+import "./App.scss";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
   const addTodoHandler = (text) => {
-    setTodos([...todos, text]);
+    const newTodo = {
+      test: todos,
+      isComplited: false,
+      id: uuidv4,
+    };
+
+    setTodos([...todos, newTodo]);
   };
 
   const deleteTodoHandler = (index) => {
