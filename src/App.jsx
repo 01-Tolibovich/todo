@@ -1,36 +1,57 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { TodoForm, TodoList } from "./components/todos";
+import { TodoForm, TodoList, TodosActions } from "./components/todos";
 import "./App.scss";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+	const [todos, setTodos] = useState([]);
 
-  const addTodoHandler = (text) => {
-    const newTodo = {
-      test: todos,
-      isComplited: false,
-      id: uuidv4,
-    };
+	const addTodoHandler = text => {
+		const newTodo = {
+			text,
+			isComplited: false,
+			id: uuidv4(),
+		};
 
-    setTodos([...todos, newTodo]);
-  };
+		setTodos([...todos, newTodo]);
+	};
 
-  const deleteTodoHandler = (index) => {
-    setTodos(todos.filter((_, idx) => idx !== index));
-  };
+	const deleteTodoHandler = id => {
+		setTodos(todos.filter(todo => todo.id !== id));
+	};
 
-  return (
-    <div className="App">
-      <div className="app-wrapper">
-        <header className="App-header">
-          <h1>Todo</h1>
-        </header>
-        <TodoForm addTodo={addTodoHandler} />
-        <TodoList todos={todos} deleteTodo={deleteTodoHandler} />
-      </div>
-    </div>
-  );
+	const toggleTodoHandler = id => {
+		setTodos(todos.map(todo => (todo.id === id ? { ...todo, isComplited: !todo.isComplited } : { ...todo })));
+	};
+
+	const resetTodoHandler = () => {
+		setTodos([]);
+	};
+
+	const deleteCompletedTodosHandler = () => {
+		setTodos(todos.filter(todo => !todo.isComplited));
+	};
+
+	const complitedTodosCount = todos.filter(todo => todo.isComplited).length;
+
+	return (
+		<div className="App">
+			<div className="app-wrapper">
+				<header className="App-header">
+					<h1>Todo</h1>
+				</header>
+				<TodoForm addTodo={addTodoHandler} />
+				{!!todos.length && (
+					<TodosActions 
+            resetTodo={resetTodoHandler} 
+            deleteCompletedTodos={deleteCompletedTodosHandler}
+            completedTodosExist={!!complitedTodosCount} 
+          />
+				)}
+				<TodoList todos={todos} deleteTodo={deleteTodoHandler} toggleTodo={toggleTodoHandler} />
+			</div>
+		</div>
+	);
 }
 
 export default App;
