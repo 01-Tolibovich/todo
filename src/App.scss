@@ -1,16 +1,33 @@
+@import "./styles/variables.scss";
+@import "./styles/mixins.scss";
 .App {
   min-height: 100vh;
-  background-color: bisque;
 
   .app-wrapper {
-      max-width: 1300px;
+    max-width: $xl;
       width: 100%;
       margin: 0 auto;
       padding: 10px;
-    }
+@include mediaMin($sm) {
+    padding: 16px;
+  }
+
+  @include mediaMin($md) {
+    padding: 24px;
+  }
+}
   .App-header {
     h1 {
       text-align: center;
+      padding: 16px 0;
+      
+        @include mediaMin($md) {
+          padding: 24px;
+        }
+      
+        @include mediaMin($lg) {
+          padding: 32px;
+        }
     }
   }
 }
